@@ -1,6 +1,6 @@
 {
   "name": "react-craftform",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dest/cf_form.es6.js",
   "scripts": {
