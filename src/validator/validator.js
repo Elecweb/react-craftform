@@ -24,6 +24,22 @@ export const minLength = (minRequired) => {
     
 };
 
+export const maxLength = (maxRequired) => {
+    return (val) => {
+        if(val && val.length <= maxRequired){
+            return false;
+        }else{
+            return {
+                maxRequired:{
+                    length:val.length ? val.length : 0,
+                    maxRequired
+                }
+            }
+        }
+    }
+    
+};
+
 const index = {
     required,
     minLength
