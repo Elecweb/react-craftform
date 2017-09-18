@@ -81,8 +81,8 @@ We will explianed what ```withForm``` function does.
 |       Function      |         String         |
 | ------------------- | ---------------------- |
 | validator.required  |    "required"          |
-| validator.minLength(minRequired)  | -        |
-| validator.maxLength(maxRequired)  | -        |
+| validator.minLength(minRequired)  | - |
+| validator.maxLength(maxRequired)  | - |
   
   
   ### Custom validator
