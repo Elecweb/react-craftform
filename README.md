@@ -79,9 +79,9 @@ We will explianed what ```withForm``` function does.
   you can provide validator with string or function
 |       Function      |         String         |
 | ------------------- | ---------------------- |
-| validator.required  |    "required"    |
-| validator.minLength(minRequired)  | -  |
-| validator.maxLength(maxRequired)  | -  |
+| validator.required  |    "required"          |
+| validator.minLength(minRequired)  | -        |
+| validator.maxLength(maxRequired)  | -        |
   
   
   ### Custom validator
