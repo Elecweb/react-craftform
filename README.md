@@ -77,9 +77,9 @@ We will explianed what ```withForm``` function does.
   ### Built-in validator
   For now there're 3 built-in validator and we'll provide more soon
   you can provide validator with string or function
-  Function  | String |
-| ------------- | ------------- |
-| validator.required  | "required"  |
+|       Function      |         String         |
+| ------------------- | ---------------------- |
+| validator.required  |    "required"    |
 | validator.minLength(minRequired)  | -  |
 | validator.maxLength(maxRequired)  | -  |
   
