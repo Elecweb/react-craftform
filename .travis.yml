@@ -1,14 +1,12 @@
 language: node_js
 node_js:
-  - "6"
-before_install:
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
+- '6'
+
 script: npm run lint && npm run test
 after_success:
 - npm run coveralls
-
-
 deploy:
   provider: npm
-  email: "elecwebmaker@gmail.com"
-  api_key: 
+  email: elecwebmaker@gmail.com
+  api_key:
+    secure: ARey6wnH4nwpdO8DfYUdH9+Ngw9M69Zs/PwoX9siC+ijsZRPqZc4W7QFvJ3oobQ19QKFLQj6zn8PZA0Bm2V+QOBbEyH2Dr0SNBW+HL/tmGs4Uj1Qd5Dtx8MV7m5xYiuHxcCeSnBXY4J3Gz+XD8xtebQPUoqED8I62xeqLGBXNhktU91Ealng8LVjvWgWmRGmS9uRMWTbgw5xHBCFBl7eN/VD/Kz5/KTAuUUnFZqSjIIi7r3dzBsAdZkt1xAusegtTtANMVQts2SrVr+Wc91A3gpgZPNI3RvVZo3LSyCTtiVsqsQ4KGkHZKaefeQkFzoVw+LDnGr+UY6hpWIxT/eqtoBOF1VER61dAi5aLn20602A8xVB12V2i1WFNJ2DD4lPlEQzXbRzWk0e4veGropMMZNzWLSJ7bnWP5kfoX33VYO/+LBEdQtWEOVq0/kTN/M37m2RhnBqVHWdQnDWM3Y6IBUQfOzLRJ19FSeEkDUPhk37oPqRksYzDVW+TFBX7nWpK7aC5ngrUr60egELsfrJTEBjQCuYEmRMc9ElzqIpWZ8eAECLqeyuctQBDPam8Ov5ECEGGmZQWqgT+yQ0LZoHLVY3dr1NAmEsAPm9RGZ46qdEEOW+96uNCXKWJrVu8rPz+1Mo7h7Ah4nOS4lGrfiB2EQfdNQGz1S8XRLwlpmQwsU=
