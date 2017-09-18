@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-
+notdefinedvariable = 3434;
 const renderErrorComp = (error,keyErr, Render, index) => {
     if(error[keyErr] && Render){
         console.log(index);
