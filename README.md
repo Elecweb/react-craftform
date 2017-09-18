@@ -1,2 +1,2 @@
 # react-craftform
-https://travis-ci.org/Elecweb/react-craftform.svg?branch=master
+<img src="https://travis-ci.org/Elecweb/react-craftform.svg?branch=master">
