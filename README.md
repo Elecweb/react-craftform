@@ -68,8 +68,9 @@ We will explianed what ```withForm``` function does.
 ## Validation
  You can add validation easily in description object.
  ```
+    
     {
-       name:["",["required"]],
+       name:["",["required",validator.minLength(3)]],
        lastname:["myinitalCode"]
     }
  ```
