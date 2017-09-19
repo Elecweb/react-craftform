@@ -7,10 +7,10 @@ React form library with full customizable and extensible. This library help you 
 This library doesn't add any style to your form component. It let style of form to your imagination.
 
 ## Installation
-  ``` npm install react-craftform --save```
+  ` npm install react-craftform --save`
 
 ## Usage
-  ```react-craftform``` created with <a href="https://facebook.github.io/react/docs/higher-order-components.html">HOC</a> in mind. ```react-craftform``` provide function called ```withForm``` for providing existing form with power!
+  `react-craftform` created with <a href="https://facebook.github.io/react/docs/higher-order-components.html">HOC</a> in mind. `react-craftform` provide function called `withForm` for providing existing form with power!
 
 ```javascript
 import React from 'react';
@@ -74,7 +74,7 @@ export default withForm(MyForm,{
   
 ## Validation
  You can add validator easily in description object.
- ```
+ ```javascript
     import { validator } from 'react-craftform';
     
     ...
