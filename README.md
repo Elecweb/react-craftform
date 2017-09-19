@@ -41,7 +41,7 @@ export default withForm(MyForm,{
 //add example
 
 ## Create form with `withForm`
-  ```withForm``` take 2 parameters. First parameter it takes is your form component. Second parameter is description about your controls.
+  `withForm` take 2 parameters. First parameter it takes is your form component. Second parameter is description about your controls.
   
   Let's take a look at `withForm`.
   
@@ -64,11 +64,11 @@ export default withForm(MyForm,{
   
   ```html
      <input type="text" className="name" onChange={props.form.handleChange("name")} value={props.form.values['name']}/>
-     <input type="text" className="code" onChange={props.form.handleChange("lastname")} value={props.form.values['lastname']} 
+     <input type="text" className="code" onChange={props.form.handleChange("lastname")} value={props.form.values['lastname']} />
   ```
   
 ## Getting value
-    You can get value of control in ```props.form.values[controlname]```. As above exmaple, we pass ```props.form.values['name']``` to input attribute value for `name` control and  ```props.form.values['lastname']``` for `lastname` control.
+    You can get value of control in `props.form.values[controlname]`. As above exmaple, we pass `props.form.values['name']` to input attribute value for `name` control and  `props.form.values['lastname']` for `lastname` control.
   
 ## Validation
  You can add validation easily in description object.
@@ -95,6 +95,7 @@ Error object has property name indicating what validation that control violate a
   props.form.errors['name']; // { required: true, minLength: {length: 0, minRequired:3 }}
   props.form.errors['lastname']; // { maxLength:{length: 12, maxRequired:3 }}
  ```
+ 
  You can use error object for showing error message and/or prevent submit if there's an error. We will explain in <a>Error message</a> section and <a>preventing user submit</a> form section
  
   ### Built-in validator
@@ -102,8 +103,8 @@ Error object has property name indicating what validation that control violate a
 |       Function      |         String         |  error object
 | ------------------- | ---------------------- | ------- |
 | validator.required  |    "required"          |   { required:true }      |
-| validator.minLength(minRequired)  | - |  { minLength:{ length:3, minRequired:4 } ```length``` is current length of control |
-| validator.maxLength(maxRequired)  | - |  { maxLength:{ length:6, maxRequired:4 } ```length``` is current length of control | 
+| validator.minLength(minRequired)  | - |  { minLength:{ length:3, minRequired:4 } `length` is current length of control |
+| validator.maxLength(maxRequired)  | - |  { maxLength:{ length:6, maxRequired:4 } `length` is current length of control | 
   
   
   ### Custom validator 
@@ -114,7 +115,7 @@ Error object has property name indicating what validation that control violate a
     
     ...
     const haveToBeCat = (val) => {
-      if(val === "cat"){
+      if(val === "cat"){ 
           return false;
       }else{
           return {
@@ -135,7 +136,7 @@ Error object has property name indicating what validation that control violate a
   1) if value is valid, just return false
   2) if value is invalid, return object which propery name is meaningful name. You will be use the name for showing error message. 
   
- You can modify `haveToBeCat` to be more reuseable.
+ You can refactor `haveToBeCat` to be more reuseable.
  
  ```javascript
     const haveToBeSomething = (word) => {
@@ -159,8 +160,176 @@ Error object has property name indicating what validation that control violate a
       lastname:["myinitilCode",haveToBeDog]
     });
    ```
+   
+   May functional programing be with you.
  
 ## Error message
+ You can provide error message by call `errorMessage` function. it accpet one parameter and return another function which accept error object and return component we provide. It use <a href="https://www.sitepoint.com/currying-in-functional-javascript/" >currying function style.</a>
+ 
+```javascript
+  import React from 'react';
+  import {withForm, validator, hasError, errorMessage} from 'react-craftform';
+
+  const MyForm = (props) => {
+    return (
+     <form>
+          <section className="name_section">
+              <label>Name</label>
+              <input type="text" className="name" onChange={props.form.handleChange("name")} value={props.form.values['name']}/>
+          </section>
+          <p>Name Value: {props.form.values['name']} </p>
+          {
+            errorMessage({
+                minLength:()=>{
+                    return (<p>Please fill control with 5 length</p>);
+                },
+                required:()=>{
+                    return (<p>Please fill input</p>);
+                },        
+            })(props.form.errors['name'])
+          }
+          <section className="code_section">
+              <label>Last Name</label>
+              <input type="text" className="code" onChange={props.form.handleChange("lastname")} value={props.form.values['lastname']} />
+              
+          </section>
+          <p>LastName Value: {props.form.values['lastname']} </p>
+          {
+            errorMessage({
+                minLength:()=>{
+                    return (<p>Please fill control with 5 length</p>);
+                },
+                required:()=>{
+                    return (<p>Please fill input</p>);
+                },        
+            })(props.form.errors['lastname'])
+          }
+      </form>
+  );
+}
+
+export default withForm(MyForm,{
+  name:["",["required"]],
+  lastname:["",[validator.minLength(5)]]
+});
+
+```
+### Get rid of duplicated code
+There's duplicated code. You can get rid of it by creating function and return invoking `errorMessage` function. 
+
+```javascript
+const errorSpec = () => {
+    return errorMessage({
+        minLength:()=>{
+            return (<p>Please fill control with 5 length</p>);
+        },
+        required:()=>{
+            return (<p>Please fill input</p>);
+        }
+    });
+};
+
+const MyForm = (props) => {
+  return (
+     <form>
+          <section className="name_section">
+              <label>Name</label>
+              <input type="text" className="name" onChange={props.form.handleChange("name")} value={props.form.values['name']}/>
+          </section>
+          <p>Name Value: {props.form.values['name']} </p>
+          {
+            errorSpec()(props.form.errors['name'])
+          }
+          <section className="code_section">
+              <label>Last Name</label>
+              <input type="text" className="code" onChange={props.form.handleChange("lastname")} value={props.form.values['lastname']} />
+              
+          </section>
+          <p>LastName Value: {props.form.values['lastname']} </p>
+          {
+            errorSpec()(props.form.errors['lastname'])
+          }
+      </form>
+  );
+}
+```
+### Showing error with information
+
+You can provide information easily for showing error message
+
+```javascript
+const errorSpec = (name) => {
+    return errorMessage({
+        minLength:()=>{
+            return (<p>Please fill control {name} with 5 length</p>);
+        },
+        required:()=>{
+            return (<p>Please fill control {name}</p>);
+        }
+    });
+};
+
+...
+const MyForm = (props) => {
+         return (
+          ...
+          {
+            errorSpec('name')(props.form.errors['name'])
+          }
+          ..
+          )
+}
+```
+
+### Showing error with custom validation
+It's the same as built-in validation. Let me show you
+ ```javascript
+    const haveToBeSomething = (word) => {
+        return (val) => {
+            if(val === word){
+                return false;
+            }else{
+                return {
+                    havetoBeSomething:{
+                      expectedValue:word,
+                      value:val
+                    }
+                }
+            }
+        }
+
+    };
+
+    const haveToBeCat = haveToBeSomething("cat");
+    const haveToBeDog  haveToBeSomething("dog");
+   
+   const errorSpec = () => {
+        return errorMessage({
+            ...
+            havetoBeSomething:() => {
+                return (<p>Please fill cat!</p>)
+            }
+        });
+    };
+   ```
+  
+It's easy but there's one problem, error message for `havetoBeSomething` assume to be "cat". How about "dog"? Luckily we can handle this issue in easy way.
+
+### Using error object for more meaningful error message
+
+```javascript
+     const errorSpec = () => {
+        return errorMessage({
+            ...
+            havetoBeSomething:(def) => {
+                return (<p>Please fill {def.expectedValue}! Now you provide {def.value}</p>)
+            }
+        });
+    };
+```
+
+`errorMessage` will provide corresponding error object in parameter of function. So you can use it for providing more meaningful error message. 
+`validator.minLength` and `validator.maxLength` are also provide error object which have `length` for current length and `minRequired` and `maxRequired` respectively for indicating min length and max length it require
 
 ## Use withForm with Container component
 
