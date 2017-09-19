@@ -10,7 +10,7 @@ This library doesn't add any style to your form component. It let style of form 
   ` npm install react-craftform --save`
 
 ## Usage
-  `react-craftform` created with <a href="https://facebook.github.io/react/docs/higher-order-components.html">HOC</a> in mind. `react-craftform` provide function called `withForm` for providing existing form with power!
+  `react-craftform` created with <a href="https://facebook.github.io/react/docs/higher-order-components.html">HOC</a> in mind. `react-craftform` provide function called `withForm` for providing existing form power!
 
 ```javascript
 import React from 'react';
@@ -42,35 +42,38 @@ export default withForm(MyForm,{
 ```
 //add example
 
-## Create form with `withForm`
+## Creating form with `withForm`
   `withForm` take 2 parameters. First parameter it takes is your form component. Second parameter is description about your controls.
   
-  Let's take a look at `withForm`.
+  Let's take a look at `withForm` function.
   
   ```javascript
    export default withForm(MyForm,{
       name:["",["required"]],
       lastname:["myinitilCode"]
-    });
+   });
   ```
-  `MyForm` component receive object called `forn` via `props` for managing control (eg. handling `onChange` event, geting value and errors).
+  `MyForm` component will receive object called `forn` via `props` for managing control (eg. handling `onChange` event, geting value and errors).
   
-  Second parameter is object which property name is your control name. Each control name's value is array which for specifing initial value at index `0` and Validators at index `1`.
+  Second parameter is object which property name is your control name. Each control name's value is array which for specifying initial value at index `0` and Validators at index `1`.
   
-  In above code we tell `withForm` that it has 2 controls which name are `name` and `lastname`. `name` control have no initial value
-  and is required; on the other hand, `lastname` control have initial value which is "initialCode" and is opional.
+  In above code, we tell `withForm` that it has 2 controls which name are `name` and `lastname`. `name` control have no initial value
+  and is required and `lastname` control have initial value which is "initialCode" and is opional.
   
 ## Handling change on input
   `withForm` doesn't update value for you so that you can customize as you want. Instead, it help you by providing `form` object via props with have method for update value.
-  In `form` props, there's `handleChange` method for update value. `handleChange` accept control name.
+  
+  `form` props has `handleChange` method for updating value. `handleChange` accept control name.
   
   ```html
      <input type="text" className="name" onChange={props.form.handleChange("name")} value={props.form.values['name']}/>
      <input type="text" className="code" onChange={props.form.handleChange("lastname")} value={props.form.values['lastname']} />
   ```
   
-## Getting value
-    You can get value of control by call `props.form.values[controlname]`. As above exmaple, we pass `props.form.values['name']` to input attribute `value` for `name` control and  `props.form.values['lastname']` for `lastname` control.
+## Getting value of control
+   You can get value of control by call `props.form.values[controlname]`. 
+   
+   As above exmaple, we pass `props.form.values['name']` to input attribute `value` for `name` control and  `props.form.values['lastname']` for `lastname` control.
   
 ## Validation
  You can add validator easily in description object.
@@ -84,25 +87,27 @@ export default withForm(MyForm,{
       lastname:["myinitilCode",validator.maxLength(3)]
     });
  ```
- You can use built-in validator which provide by this library or create your own validator (I promise it's easy).
- 
- Error object will be generated according to specified validation. You can get error object in ```props.form.errors[controlname]```.
+You can use built-in validator provided by this library or create your own validator (I promise it's easy).
 
+### Error object
+Error object will be generated according to specified validators. 
+You can get error object in ```props.form.errors[controlname]```.
 
-Error object has property name indicating what validation that control violate and it's value is detail you can leverage (eg. showing more meaningful error message)
+Error object has property name indicating what validator that control violate and it's value is detail about the error you can leverage (eg. showing more meaningful error message)
  
- As above example, there'll be inital error for `name` and `lastname` controls.
+ 
+ As above example, there'll be initial error for `name` and `lastname` controls.
  
  ```javascript
   props.form.errors['name']; // { required: true, minLength: {length: 0, minRequired:3 }}
   props.form.errors['lastname']; // { maxLength:{length: 12, maxRequired:3 }}
  ```
  
- You can use error object for showing error message and/or prevent submit if there's an error. We will explain in <a>Error message</a> section and <a>preventing user submit</a> form section
+ You can use error object for showing in error message and/or prevent submit if there's an error. We will explain in <a href="https://github.com/Elecweb/react-craftform/blob/master/README.md#error-message">Error message section</a> and <a href="https://github.com/Elecweb/react-craftform/blob/master/README.md#preventing-submit-form-if-theres-an-error">preventing user submit form section</a>
  
   ### Built-in validator
   
-|       Function      |         String         |  error object
+|       Function      |         String         |  example of error object
 | ------------------- | ---------------------- | ------- |
 | validator.required  |    "required"          |   { required:true }      |
 | validator.minLength(minRequired)  | - |  { minLength:{ length:3, minRequired:4 } `length` is current length of control |
@@ -130,13 +135,14 @@ Error object has property name indicating what validation that control violate a
     });
  ```
  
- In the above example, we create function called `haveToBeCat` which will be called and provide current value of control to first parameter by library. 
- When create your own custom validator, just remember 2 things
+ In the above example, we create function called `haveToBeCat`. It will be called and provided current value of control to first parameter by library so you can use it to check current value against your specified rule.
  
-  1) if value is valid, just return false
-  2) if value is invalid, return object which propery name is meaningful name. You will be use the name for showing error message. 
-  
- You can refactor `haveToBeCat` to be more reuseable.
+When create your own custom validator, just remember 2 things
+ 
+  1) if value is valid, just return false.
+  2) if value is invalid, return object which propery name is meaningful name. You will be use that name for showing error message. 
+ 
+ `haveToBeCat` works great but you can refactor `haveToBeCat` to be more reuseable.
  
  ```javascript
     const haveToBeSomething = (word) => {
@@ -164,10 +170,12 @@ Error object has property name indicating what validation that control violate a
     });
    ```
    
-   May functional programing be with you.
+May functional programing be with you.
  
-## Error message
- You can provide error message by calling `errorMessage` function. It accept one parameter and return another function which accept error object and return component we provide. It use <a href="https://www.sitepoint.com/currying-in-functional-javascript/" >currying function style.</a>. If you're cofused, don't worry just look at the example below.
+## Showing error message
+ You can provide error message by calling `errorMessage` function. It accept one parameter and return another function which accept error object and return component we provide. It use <a href="https://www.sitepoint.com/currying-in-functional-javascript/" >currying function style</a>.
+ 
+If you're confused, don't worry just let code exlain itself.
  
 ```javascript
   ...
@@ -257,7 +265,7 @@ const MyForm = (props) => {
 }
 ```
 
-just assign `errorSpec` to `errorMessage` with how to render error message.
+Just assign variable to `errorMessage` with how to render error message.
 
 ### Showing error with information
 
@@ -286,9 +294,12 @@ const MyForm = (props) => {
           )
 }
 ```
+// add example
 
-### Showing error with custom validator
-It's the same as built-in validation. Let me show you
+### Showing error message with custom validator
+
+It's the same as built-in validator. Let me show you
+
  ```javascript
     const haveToBeSomething = (word) => {
         return (val) => {
@@ -309,7 +320,7 @@ It's the same as built-in validation. Let me show you
     const haveToBeCat = haveToBeSomething("cat");
     const haveToBeDog  haveToBeSomething("dog");
    
-   const errorSpec = () => {
+    const errorSpec = () => {
         return errorMessage({
             ...
             havetoBeSomething:() => {
@@ -319,7 +330,9 @@ It's the same as built-in validation. Let me show you
     };
    ```
   
-It's easy but there's one problem, error message for `havetoBeSomething` assume to be "cat". How about "dog"? Luckily we can handle this issue in easy way.
+It's easy but there's one problem, error message for `havetoBeSomething` assume to be "cat". How about "dog"? 
+
+Luckily we can handle this issue in easy way.
 
 ### Using error object for more meaningful error message
 
@@ -334,12 +347,15 @@ It's easy but there's one problem, error message for `havetoBeSomething` assume 
     };
 ```
 
-`errorMessage` will provide corresponding error object in parameter of function. So you can use it for providing more meaningful error message. 
-`validator.minLength` and `validator.maxLength` are also provide error object which have `length` for current length and `minRequired` and `maxRequired` respectively for indicating min length and max length it require
+`errorMessage` will be provided corresponding error object in parameter of function. So you can use it for providing more meaningful error message. 
 
-## How to handle submit form
+`validator.minLength` and `validator.maxLength` are also provide error object. you can look at <a href="https://github.com/Elecweb/react-craftform/blob/master/README.md#built-in-validator">here</a>
 
-`withForm` doesn't specify how to handle submit form. We want you to have full control. Provided props to `withForm` component will go to your form component as well.
+## How to handle form submit
+
+`withForm` doesn't handle submit form. We want you to have full control. 
+
+Provided props to `withForm` component will go to your form component as well. So you can add callback for `onSubmit` event via props.
 
 ```javascript
 const MyForm = (props) => {
@@ -373,7 +389,7 @@ const MyForm = (props) => {
 ```
 There's no difference for handling form in normal way, except you can get value from `props.form.values` which it's object whose properies is control name and it's value is corresponding control value.
 
-### preventing submit form if there's an error
+### Preventing form submit if there's an error
 
 You can check there's an error easily with `hasError` function.
 
