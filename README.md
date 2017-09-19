@@ -2,7 +2,9 @@
 <img src="https://travis-ci.org/Elecweb/react-craftform.svg?branch=master">
 <a href='https://coveralls.io/github/Elecweb/react-craftform?branch=master'><img src='https://coveralls.io/repos/github/Elecweb/react-craftform/badge.svg?branch=master' alt='Coverage Status' /></a>
 
-React form library with full customizable.
+React form library with full customizable and extensible. This library help you create form with your own style.
+
+This library doesn't add any style to your form component. It let style of form to your imagination.
 
 ## Installation
   ``` npm install react-craftform --save```
