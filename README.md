@@ -377,7 +377,7 @@ There's no difference for handling form in normal way, except you can get value 
 
 You can check there's an error easily with `hasError` function.
 
-```javscript
+```javascript
  ...
  const MyForm = (props) => {
   const onSubmit = (evt) => {
