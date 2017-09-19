@@ -76,8 +76,8 @@ We will explianed what ```withForm``` function does.
  ```
  You can use built-in validator which provide by this library or create your own validator(I promise it's easy).
   ### Built-in validator
-  For now there're 3 built-in validator and we'll provide more soon
-  you can provide validator with string or function
+  For now there're 3 built-in validator and we'll provide more soon.
+  You can provide validator with string or function
   
 |       Function      |         String         |
 | ------------------- | ---------------------- |
