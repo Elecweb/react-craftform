@@ -79,12 +79,24 @@ We will explianed what ```withForm``` function does.
   For now there're 3 built-in validator and we'll provide more soon.
   You can provide validator with string or function
   
-|       Function      |         String         |
-| ------------------- | ---------------------- |
-| validator.required  |    "required"          |
-| validator.minLength(minRequired)  | - |
-| validator.maxLength(maxRequired)  | - |
+|       Function      |         String         |  error object
+| ------------------- | ---------------------- | ------- |
+| validator.required  |    "required"          |   { required:true }      |
+| validator.minLength(minRequired)  | - |  { minLength:{
+                                                length:3, //current length of control  
+                                                minRequired:4                                      |
+| validator.maxLength(maxRequired)  | - |                | 
   
+ For example, you fill above validators, you can get error with ```props.form.errors[controlname]``` which return 
+ 
+ ```
+ {
+  required:true,
+  minLength:{
+    length:0,
+    minRequired:3
+  }
+  ```
   
   ### Custom validator
 
