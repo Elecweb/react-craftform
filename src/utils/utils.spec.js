@@ -1,7 +1,7 @@
 import chai from 'chai';
 const expect = chai.expect;
 import { validateControl, hasError } from './utils';
-
+import { minLength } from './../validator/validator';
 describe('Utility',() => {
     describe('validateControl function', () => {
         it('should return correct error array if there`s an error', ()=>{
@@ -14,6 +14,12 @@ describe('Utility',() => {
 
         it(`should return "false" if it's correct`, ()=>{
             const actualValue = validateControl('test', 'required' ,'testname');
+
+            expect(actualValue).to.be.false;
+        });
+
+        it(`should return "false" if it's correct with array rule`, ()=>{
+            const actualValue = validateControl('test', ['required',minLength(3)] ,'testname');
 
             expect(actualValue).to.be.false;
         });

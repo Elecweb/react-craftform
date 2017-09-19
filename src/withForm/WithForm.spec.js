@@ -11,7 +11,7 @@ import WithForm from './WithForm';
 
 const MockComp = (props)=>{
     const submit = ()=>{
-        props.form.onFormSubmit("data");
+        props.onFormSubmit("data");
     };
     return (
         <form onSubmit={submit}>
@@ -122,7 +122,17 @@ describe(`WithForm HOC`, ()=>{
         });
     });
 
-    it('wrapped comp recieved props from wrapper component', () => {
+    it(`can pass props in withForm component and wrapped form can recieve the same props`, () => {
+        const wrappedcomp = create_mockComp({propone:"propone", proptwo: "proptwo"},{
+            name:["",["required"]],
+            code:["wow"]
+        });
+        const props = wrappedcomp.find(MockComp).props();
+        expect(props.propone).to.be.equal("propone");
+        expect(props.proptwo).to.be.equal("proptwo");
+    });
+
+    it('wrapped comp recieved "form" props from wrapper component', () => {
         const wrappedcomp = create_mockComp({},{
             name:["",["required"]],
             code:["wow"]
@@ -141,7 +151,6 @@ describe(`WithForm HOC`, ()=>{
         });
 
         expect(wrappedcomp_props.form.handleChange,"handleChange").to.be.a('function');
-        expect(wrappedcomp_props.form.onFormSubmit,"onFormSubmit").to.be.a('function');
 
     });
 
