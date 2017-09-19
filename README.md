@@ -341,7 +341,7 @@ It's easy but there's one problem, error message for `havetoBeSomething` assume 
 
 `withForm` doesn't specify how to handle submit form. We want you to have full control. Provided props to `withForm` component will go to your form component as well.
 
-```
+```javascript
 const MyForm = (props) => {
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -377,7 +377,7 @@ There's no difference for handling form in normal way, except you can get value 
 
 You can check there's an error easily with `hasError` function.
 
-```
+```javscript
  ...
  const MyForm = (props) => {
   const onSubmit = (evt) => {
