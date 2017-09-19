@@ -82,10 +82,8 @@ We will explianed what ```withForm``` function does.
 |       Function      |         String         |  error object
 | ------------------- | ---------------------- | ------- |
 | validator.required  |    "required"          |   { required:true }      |
-| validator.minLength(minRequired)  | - |  { minLength:{
-                                                length:3, //current length of control  
-                                                minRequired:4                                      |
-| validator.maxLength(maxRequired)  | - |                | 
+| validator.minLength(minRequired)  | - |  { minLength:{ length:3, minRequired:4 } //```length``` is current length of control |
+| validator.maxLength(maxRequired)  | - |  { maxLength:{ length:6, maxRequired:4 } //```length``` is current length of control | 
   
  For example, you fill above validators, you can get error with ```props.form.errors[controlname]``` which return 
  
