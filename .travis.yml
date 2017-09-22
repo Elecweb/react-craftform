@@ -9,6 +9,7 @@ after_success:
 before_deploy:
 - npm run build
 deploy:
+  skip_cleanup: true
   provider: npm
   email: elecwebmaker@gmail.com
   api_key:
