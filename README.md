@@ -40,7 +40,7 @@ export default withForm(MyForm,{
   lastname:["myinitalCode"]
 });
 ```
-//add example
+>> add example
 
 ## Creating form with `withForm`
   `withForm` take 2 parameters. First parameter it takes is your form component. Second parameter is description about your controls.
@@ -88,7 +88,7 @@ export default withForm(MyForm,{
     });
  ```
 You can use built-in validator provided by this library or create your own validator (I promise it's easy).
-
+>> add example
 ### Error object
 Error object will be generated according to specified validators. 
 You can get error object in ```props.form.errors[controlname]```.
@@ -225,7 +225,7 @@ export default withForm(MyForm,{
 });
 
 ```
-// add exmample here
+>> add example
 
 ### Get rid of duplicated code
 It works great but there's duplicated code for `name` and `lastname` controls. You can get rid of it by creating function and return invoking `errorMessage` function. 
@@ -264,7 +264,7 @@ const MyForm = (props) => {
   );
 }
 ```
-
+>> add example
 Just assign variable to `errorMessage` with how to render error message.
 
 ### Showing error with information
@@ -294,7 +294,7 @@ const MyForm = (props) => {
           )
 }
 ```
-// add example
+>> add example
 
 ### Showing error message with custom validator
 
@@ -329,10 +329,12 @@ It's the same as built-in validator. Let me show you
         });
     };
    ```
+ >> add example
   
 It's easy but there's one problem, error message for `havetoBeSomething` assume to be "cat". How about "dog"? 
 
 Luckily we can handle this issue in easy way.
+
 
 ### Using error object for more meaningful error message
 
@@ -346,7 +348,7 @@ Luckily we can handle this issue in easy way.
         });
     };
 ```
-
+>> add example
 `errorMessage` will be provided corresponding error object in parameter of function. So you can use it for providing more meaningful error message. 
 
 `validator.minLength` and `validator.maxLength` are also provide error object. you can look at <a href="https://github.com/Elecweb/react-craftform/blob/master/README.md#built-in-validator">here</a>
@@ -387,6 +389,8 @@ const MyForm = (props) => {
   );
 }
 ```
+
+>> add example
 There's no difference for handling form in normal way, except you can get value from `props.form.values` which it's object whose properies is control name and it's value is corresponding control value.
 
 ### Preventing form submit if there's an error
@@ -410,7 +414,8 @@ You can check there's an error easily with `hasError` function.
      ...
   );
 }
-add example
+```
+>> add example
 
 
 
