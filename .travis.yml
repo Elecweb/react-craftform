@@ -5,6 +5,9 @@ node_js:
 script: npm run lint && npm run test
 after_success:
 - npm run coveralls
+
+before_deploy:
+- npm run build
 deploy:
   provider: npm
   email: elecwebmaker@gmail.com
