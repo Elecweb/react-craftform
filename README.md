@@ -40,7 +40,7 @@ export default withForm(MyForm,{
   lastname:["myinitalCode"]
 });
 ```
-<a href="https://embed.plnkr.co/3nYKo6aLileEJa9fjwFV/">Plunker</a>
+<a href="https://embed.plnkr.co/3nYKo6aLileEJa9fjwFV/">Plunker example</a>
 
 ## Creating form with `withForm`
   `withForm` take 2 parameters. First parameter it takes is your form component. Second parameter is description about your controls.
@@ -89,7 +89,7 @@ export default withForm(MyForm,{
  ```
 You can use built-in validator provided by this library or create your own validator (I promise it's easy).
 
-<a href="https://embed.plnkr.co/ipMksSr5gOSQ2l8xOzGm/">Plunker</a>
+<a href="https://embed.plnkr.co/ipMksSr5gOSQ2l8xOzGm/">Plunker example</a>
 
 ### Error object
 Error object will be generated according to specified validators. 
@@ -136,7 +136,7 @@ Error object has property name indicating what validator that control violate an
       lastname:["myinitilCode",validator.maxLength(3)]
     });
  ```
-<a href="https://embed.plnkr.co/iROcPg8EQTpEh7QJ8Nnf/">Plunker</a>
+<a href="https://embed.plnkr.co/iROcPg8EQTpEh7QJ8Nnf/">Plunker example</a>
 
  In the above example, we create function called `haveToBeCat`. It will be called and provided current value of control to first parameter by library so you can use it to check current value against your specified rule.
  
@@ -172,7 +172,7 @@ When create your own custom validator, just remember 2 things
       lastname:["myinitilCode",haveToBeDog]
     });
    ```
-<a href="https://embed.plnkr.co/docFYjpWrcpMZDrdu4Rw/">Plunker</a>
+<a href="https://embed.plnkr.co/docFYjpWrcpMZDrdu4Rw/">Plunker example</a>
 
 May functional programing be with you.
 
@@ -231,7 +231,7 @@ export default withForm(MyForm,{
 });
 
 ```
-<a href="https://embed.plnkr.co/eg24R87g4C2dRKjPZHJe/">Plunker</a>
+<a href="https://embed.plnkr.co/eg24R87g4C2dRKjPZHJe/">Plunker example</a>
 
 ### Get rid of duplicated code
 It works great but there's duplicated code for `name` and `lastname` controls. You can get rid of it by creating function and return invoking `errorMessage` function. 
@@ -270,7 +270,7 @@ const MyForm = (props) => {
   );
 }
 ```
-<a href="https://embed.plnkr.co/WAh7HEWZqrbpmeRvjhJS/">Plunker</a>
+<a href="https://embed.plnkr.co/WAh7HEWZqrbpmeRvjhJS/">Plunker example</a>
 
 Just assign variable to `errorMessage` with how to render error message.
 
@@ -301,7 +301,7 @@ const MyForm = (props) => {
           )
 }
 ```
-<a href="https://embed.plnkr.co/zy9tlenzxqwwk8sIequb/">Plunker</a>
+<a href="https://embed.plnkr.co/zy9tlenzxqwwk8sIequb/">Plunker example </a>
 
 ### Showing error message with custom validator
 
@@ -336,7 +336,7 @@ It's the same as built-in validator. Let me show you
         });
     };
    ```
-<a href="https://embed.plnkr.co/RFffj4MIwnLOFXUZOuKY/">Plunker</a>
+<a href="https://embed.plnkr.co/RFffj4MIwnLOFXUZOuKY/">Plunker example </a>
   
 It's easy but there's one problem, error message for `havetoBeSomething` assume to be "cat". How about dog, pig, elephant or whatever? 
 
@@ -355,7 +355,7 @@ Luckily we can handle this issue in easy way.
         });
     };
 ```
-<a href="https://embed.plnkr.co/FZFOT5iIClPXpyRlHIf4/">Plunker</a>
+<a href="https://embed.plnkr.co/FZFOT5iIClPXpyRlHIf4/">Plunker example </a>
 
 `errorMessage` will be provided corresponding error object in parameter of function. So you can use it for providing more meaningful error message. 
 
@@ -398,7 +398,7 @@ const MyForm = (props) => {
 }
 ```
 
-<a href="https://embed.plnkr.co/FI3p8hFLaSyw8IS9s9Gl/">Plunker</a>
+<a href="https://embed.plnkr.co/FI3p8hFLaSyw8IS9s9Gl/">Plunker example</a>
 
 There's no difference for handling form in normal way, except you can get value from `props.form.values` which it's object whose properies is control name and it's value is corresponding control value.
 
@@ -424,7 +424,7 @@ You can check there's an error easily with `hasError` function.
   );
 }
 ```
-<a href="https://embed.plnkr.co/RFffj4MIwnLOFXUZOuKY/">Plunker</a>
+<a href="https://embed.plnkr.co/RFffj4MIwnLOFXUZOuKY/">Plunker example</a>
 
 
 
