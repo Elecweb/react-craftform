@@ -42,7 +42,8 @@ export const maxLength = (maxRequired) => {
 
 const index = {
     required,
-    minLength
+    minLength,
+    maxLength
 }
 
 export default index;
