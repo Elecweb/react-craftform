@@ -4,3 +4,4 @@ buildscripts/
 rollup.**
 .eslintrc.json
 .babelrc
+.nyc_output/
