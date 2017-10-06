@@ -40,7 +40,7 @@ export default withForm(MyForm,{
   lastname:["myinitalCode"]
 });
 ```
-https://plnkr.co/edit/3nYKo6aLileEJa9fjwFV?p=preview
+https://embed.plnkr.co/3nYKo6aLileEJa9fjwFV/
 
 ## Creating form with `withForm`
   `withForm` take 2 parameters. First parameter it takes is your form component. Second parameter is description about your controls.
