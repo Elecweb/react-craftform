@@ -40,7 +40,7 @@ export default withForm(MyForm,{
   lastname:["myinitalCode"]
 });
 ```
-<a href="https://embed.plnkr.co/3nYKo6aLileEJa9fjwFV/">Plunker</a>
+<a href="https://embed.plnkr.co/3nYKo6aLileEJa9fjwFV/">Plunker example</a>
 
 ## Creating form with `withForm`
   `withForm` take 2 parameters. First parameter it takes is your form component. Second parameter is description about your controls.
@@ -83,12 +83,14 @@ export default withForm(MyForm,{
     ...
     
     export default withForm(MyForm,{
-      name:["",["required",validator.minLength3)]],
-      lastname:["myinitilCode",validator.maxLength(3)]
+      name:["",["required",validator.minLength(3)]],
+      lastname:["myinitilCode",validator.minLength(5)]
     });
  ```
 You can use built-in validator provided by this library or create your own validator (I promise it's easy).
->> add example
+
+<a href="https://embed.plnkr.co/ipMksSr5gOSQ2l8xOzGm/">Plunker example</a>
+
 ### Error object
 Error object will be generated according to specified validators. 
 You can get error object in ```props.form.errors[controlname]```.
@@ -134,7 +136,8 @@ Error object has property name indicating what validator that control violate an
       lastname:["myinitilCode",validator.maxLength(3)]
     });
  ```
- 
+<a href="https://embed.plnkr.co/iROcPg8EQTpEh7QJ8Nnf/">Plunker example</a>
+
  In the above example, we create function called `haveToBeCat`. It will be called and provided current value of control to first parameter by library so you can use it to check current value against your specified rule.
  
 When create your own custom validator, just remember 2 things
@@ -169,8 +172,11 @@ When create your own custom validator, just remember 2 things
       lastname:["myinitilCode",haveToBeDog]
     });
    ```
-   
+<a href="https://embed.plnkr.co/docFYjpWrcpMZDrdu4Rw/">Plunker example</a>
+
 May functional programing be with you.
+
+
  
 ## Showing error message
  You can provide error message by calling `errorMessage` function. It accept one parameter and return another function which accept error object and return component we provide. It use <a href="https://www.sitepoint.com/currying-in-functional-javascript/" >currying function style</a>.
@@ -225,7 +231,7 @@ export default withForm(MyForm,{
 });
 
 ```
->> add example
+<a href="https://embed.plnkr.co/eg24R87g4C2dRKjPZHJe/">Plunker example</a>
 
 ### Get rid of duplicated code
 It works great but there's duplicated code for `name` and `lastname` controls. You can get rid of it by creating function and return invoking `errorMessage` function. 
@@ -264,12 +270,13 @@ const MyForm = (props) => {
   );
 }
 ```
->> add example
+<a href="https://embed.plnkr.co/WAh7HEWZqrbpmeRvjhJS/">Plunker example</a>
+
 Just assign variable to `errorMessage` with how to render error message.
 
 ### Showing error with information
 
-You can provide information easily for showing error message
+You can provide error information easily for showing error message
 
 ```javascript
 const errorSpec = (name) => {
@@ -294,7 +301,7 @@ const MyForm = (props) => {
           )
 }
 ```
->> add example
+<a href="https://embed.plnkr.co/zy9tlenzxqwwk8sIequb/">Plunker example </a>
 
 ### Showing error message with custom validator
 
@@ -329,9 +336,9 @@ It's the same as built-in validator. Let me show you
         });
     };
    ```
- >> add example
+<a href="https://embed.plnkr.co/RFffj4MIwnLOFXUZOuKY/">Plunker example </a>
   
-It's easy but there's one problem, error message for `havetoBeSomething` assume to be "cat". How about "dog"? 
+It's easy but there's one problem, error message for `havetoBeSomething` assume to be "cat". How about dog, pig, elephant or whatever? 
 
 Luckily we can handle this issue in easy way.
 
@@ -348,7 +355,8 @@ Luckily we can handle this issue in easy way.
         });
     };
 ```
->> add example
+<a href="https://embed.plnkr.co/FZFOT5iIClPXpyRlHIf4/">Plunker example </a>
+
 `errorMessage` will be provided corresponding error object in parameter of function. So you can use it for providing more meaningful error message. 
 
 `validator.minLength` and `validator.maxLength` are also provide error object. you can look at <a href="https://github.com/Elecweb/react-craftform/blob/master/README.md#built-in-validator">here</a>
@@ -390,7 +398,8 @@ const MyForm = (props) => {
 }
 ```
 
->> add example
+<a href="https://embed.plnkr.co/FI3p8hFLaSyw8IS9s9Gl/">Plunker example</a>
+
 There's no difference for handling form in normal way, except you can get value from `props.form.values` which it's object whose properies is control name and it's value is corresponding control value.
 
 ### Preventing form submit if there's an error
@@ -415,7 +424,7 @@ You can check there's an error easily with `hasError` function.
   );
 }
 ```
->> add example
+<a href="https://embed.plnkr.co/RFffj4MIwnLOFXUZOuKY/">Plunker example</a>
 
 
 
