@@ -57,6 +57,11 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
                             this.updateValue.bind(this)(name,event.target.value)
                         }
                          
+                    },
+                    handleChange:(name) => {
+                        return (value)=>{
+                            this.updateValue.bind(this)(value)
+                        }
                     }
                 }
             }
