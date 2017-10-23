@@ -4,7 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 chai.use(chaiEnzyme())
 const expect = chai.expect;
-import { mount } from "enzyme";
+import { mount,shallow } from "enzyme";
 
 import WithForm from './WithForm';
 
@@ -20,6 +20,13 @@ const MockComp = (props)=>{
     );
 };
 
+const MockCheckboxComp = (props) => {
+    return (
+        <form>
+            <input type="checkbox" checked={props.form.values.checkboxtest} onChange={props.form.handleChange('checkboxtest')} id="checkboxtest"/>
+        </form>
+    );
+}
 describe(`WithForm HOC`, ()=>{
     let onFormSubmit;
     const create_mockComp = (props={}, controls = {
@@ -186,7 +193,7 @@ describe(`WithForm HOC`, ()=>{
         expect(onFormSubmit.calledOnce).to.be.true;
     });
 
-    it('shoud be able to pass initial value via props',() => {
+    it('should be able to pass initial value via props',() => {
         const wrappedcomp = create_mockComp({
             prefill:{
                 name:"myname",
@@ -199,5 +206,16 @@ describe(`WithForm HOC`, ()=>{
 
         expect(wrappedcomp.state('values').name).to.be.equal("myname");
         expect(wrappedcomp.state('values').code).to.be.equal("mycode");
+    });
+
+    it('should be able to handle checkbox correctly', () => {
+        const checkboxcontrol = {
+            checkboxtest:[false],
+        };  
+        const WithFormCheckbox = WithForm(MockCheckboxComp, checkboxcontrol);        
+        const FormCheckMockComp = mount(<WithFormCheckbox />);
+        expect(FormCheckMockComp.find(MockCheckboxComp).props().form.values.checkboxtest).to.be.false;
+        FormCheckMockComp.find(MockCheckboxComp).find('#checkboxtest').first().simulate('change',{checked:true});
+        expect(FormCheckMockComp.find(MockCheckboxComp).props().form.values.checkboxtest).to.be.true;
     });
 });
