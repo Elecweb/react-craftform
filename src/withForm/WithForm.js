@@ -54,7 +54,14 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
                     ...this.state,
                     handleChange:(name)=>{
                         return (event)=>{
-                            this.updateValue.bind(this)(name,event.target.value)
+                            let value;
+                            if(event.target.type == "checkbox"){
+                                value = event.target.checked;
+                            }else{
+                                value = event.target.value;
+                            }
+                            
+                            this.updateValue.bind(this)(name,value);
                         }
                          
                     },
