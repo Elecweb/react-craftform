@@ -15,7 +15,7 @@ export const minLength = (minRequired) => {
         }else{
             return {
                 minLength:{
-                    length:val.length ? val.length : 0,
+                    length:val ? val.length : 0,
                     minRequired
                 }
             }
@@ -30,8 +30,8 @@ export const maxLength = (maxRequired) => {
             return false;
         }else{
             return {
-                maxRequired:{
-                    length:val.length ? val.length : 0,
+                maxLength:{
+                    length:val ? val.length : 0,
                     maxRequired
                 }
             }
@@ -40,10 +40,24 @@ export const maxLength = (maxRequired) => {
     
 };
 
+export const email = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(re.test(email)){
+        return false;   
+    }else{
+        return {
+            email:{
+                current:email
+            }
+        }   
+    }
+}
+
 const index = {
     required,
     minLength,
-    maxLength
+    maxLength,
+    email
 }
 
 export default index;
