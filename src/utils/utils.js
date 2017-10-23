@@ -18,12 +18,17 @@ const useBuiltinRule = (rule,inputvalue) =>{
     switch(rule){
         case "required":
             return Rule.required(inputvalue);
+        case "email":
+            return Rule.email(inputvalue);
         default:
             throw new Error(`rule isn't correct, you need to pass function if it's custom rul`);
     }
 };
 const inspectError = (rules, inputvalue) => {
     let error = {};
+    rules = rules.filter((rule)=>{
+        return typeof rule !== 'undefined'; 
+    });
     rules.map((rule) => {
         if(typeof rule === "string"){
             error = {
