@@ -10,11 +10,13 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
             this.state = {
                 values:{},
                 errors:{},
-                rules:{}
+                rules:{},
+                dirtys:{}
             }
 
             Object.keys(controls).map((name) =>{
                 this.state.rules[name] = controls[name][1] ? controls[name][1] : [];
+                this.state.dirtys[name] = false;
                 if(props.prefill && props.prefill[name]){
                     this.state.values[name] = props.prefill[name];
                 }else{
@@ -27,12 +29,15 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
             });
         }
 
-        updateValue(name,value){
+        updateValue(name,value,setDirty){
             const newValues = {
                 ...this.state.values,
                 [name]:value
             };
-
+            const newDirtys = {
+                ...this.state.dirtys,
+                [name]:setDirty
+            }
             let newErrors = {};
             Object.keys(controls).map((name) => {
                 const bindrules = bindControlToRule(this.state.rules[name],newValues);
@@ -42,7 +47,8 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
             this.setState(()=>{
                 return {
                     errors:newErrors,
-                    values:newValues
+                    values:newValues,
+                    dirtys:newDirtys
                 }
             });
             
@@ -62,13 +68,13 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
                                 value = event.target.value;
                             }
                             
-                            this.updateValue.bind(this)(name,value);
+                            this.updateValue.bind(this)(name,value,true);
                         }
                          
                     },
                     handleValue:(name) => {
-                        return (value)=>{
-                            this.updateValue.bind(this)(name,value)
+                        return (value,setDirty = false)=>{
+                            this.updateValue.bind(this)(name,value,setDirty)
                         }
                     }
                 }
