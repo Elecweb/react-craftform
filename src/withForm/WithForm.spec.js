@@ -10,6 +10,20 @@ import { mount } from "enzyme";
 import WithForm from './WithForm';
 
 
+const MockCompInput = (props)=>{
+    const submit = ()=>{
+        props.onFormSubmit("data");
+    };
+
+    return (
+        <form onSubmit={submit}>
+            <button type="submit">submit</button>
+            <input type="text" id="codeinput" onChange={props.form.handleChange('code')} value={props.form.values['code']} />
+            <input type="text" id="nameinput" onChange={props.form.handleChange('name')} value={props.form.values['name']} />
+        </form>
+    );
+};
+
 const MockComp = (props)=>{
     const submit = ()=>{
         props.onFormSubmit("data");
@@ -20,6 +34,8 @@ const MockComp = (props)=>{
         </form>
     );
 };
+
+
 
 const MockPasswordComp = (props) => {
     return (
@@ -39,15 +55,28 @@ const MockCheckboxComp = (props) => {
         </form>
     );
 }
+let onFormSubmit;
+
+const create_mockComp = (props={}, controls = {
+    name:["",["required"]],
+    code:["",["required"]]
+}, formpropname) =>{
+    const WithFormMockComp = WithForm(MockComp, controls, formpropname);
+    return mount(<WithFormMockComp {...props} onFormSubmit={onFormSubmit} />);
+};
+
+const create_mockCompInput = (props={}, controls = {
+    name:["",["required"]],
+    code:["",["required"]]
+}, formpropname) =>{
+    const WithFormMockComp = WithForm(MockCompInput, controls, formpropname);
+    return mount(<WithFormMockComp {...props} onFormSubmit={onFormSubmit} />);
+};
+
+
 describe(`WithForm HOC`, ()=>{
-    let onFormSubmit;
-    const create_mockComp = (props={}, controls = {
-        name:["",["required"]],
-        code:["",["required"]]
-    }, formpropname) =>{
-        const WithFormMockComp = WithForm(MockComp, controls, formpropname);
-        return mount(<WithFormMockComp {...props} onFormSubmit={onFormSubmit} />);
-    };
+    
+    
 
     beforeEach(()=>{
         onFormSubmit = sinon.stub();
@@ -283,5 +312,47 @@ describe("rules",() => {
             }
         });
         
+    });
+});
+
+describe("dirty",()=>{
+    it(`controls's dirty should be set to false at initial`, () => {
+        const withMockComp = create_mockCompInput();
+        const dirtys = withMockComp.find(MockCompInput).props().form.dirtys;
+        const expected_dirtys = {
+            code:false,
+            name:false
+        };
+
+        expect(expected_dirtys).to.deep.equal(dirtys);
+    });
+
+    it(`control dirty should be set to true when change value`, () => {
+        const withMockComp = create_mockCompInput();
+        const expected_dirtys = {
+            code:true,
+            name:false
+        };
+        withMockComp.find(MockCompInput).find('#codeinput').simulate('change',{target:{value:"testvalue"}});
+        const dirtys = withMockComp.find(MockCompInput).props().form.dirtys;        
+        expect(expected_dirtys).to.deep.equal(dirtys);
+    });
+
+    it(`handleValue should update dirty if provide setDirty parameter to true`,() => {
+        const withMockComp = create_mockCompInput();
+        let name_dirty = withMockComp.find(MockCompInput).props().form.dirtys.name;     
+        expect(name_dirty).to.be.false;
+        withMockComp.find(MockCompInput).props().form.handleValue('name')('test',true);
+        name_dirty = withMockComp.find(MockCompInput).props().form.dirtys.name;        
+        expect(name_dirty).to.be.true;
+    });
+
+    it(`handleValue shouldn't update dirty if provide setDirty parameter to false`,() => {
+        const withMockComp = create_mockCompInput();
+        let name_dirty = withMockComp.find(MockCompInput).props().form.dirtys.name;     
+        expect(name_dirty).to.be.false;
+        withMockComp.find(MockCompInput).props().form.handleValue('name')('test');
+        name_dirty = withMockComp.find(MockCompInput).props().form.dirtys.name;        
+        expect(name_dirty).to.be.false;
     });
 });
