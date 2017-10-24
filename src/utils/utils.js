@@ -46,7 +46,6 @@ const inspectError = (rules, inputvalue) => {
         }
     });
     const filteredError = {};
-    
     Object.keys(error).map((key)=>{
         if(error[key]){
             filteredError[key] = error[key];
@@ -78,4 +77,22 @@ export const hasError = (errors) => {
 
 export const isObject = (obj) => {
     return obj === Object(obj);
+}
+
+
+export const bindControlToRule = (rules,values) => {
+    return rules.map((rule)=>{
+        
+        if(typeof rule === 'function'){
+        
+            return rule.bind({
+                controls:{
+                    values
+                }
+            });
+        }else{
+            return rule;
+        }
+        
+    });
 }
