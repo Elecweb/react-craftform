@@ -22,7 +22,8 @@
         "no-console":0,
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "no-unused-vars":2
+        "no-unused-vars":2,
+        "no-useless-escape":0
     },
     "plugins": [
       "react"
