@@ -20,6 +20,17 @@ const MockComp = (props)=>{
     );
 };
 
+const MockPasswordComp = (props) => {
+    return (
+        <form>
+            <label>Password</label>
+            <input type="text" id="passinput" onChange={props.form.handleChange('password')} value={props.form.values['password']} />
+            <label>Re-Password</label>
+            <input type="text"  onChange={props.form.handleChange('repassword')} value={props.form.values['repassword']} />
+        </form>
+    )
+}
+
 const MockCheckboxComp = (props) => {
     return (
         <form>
@@ -219,6 +230,57 @@ describe(`WithForm HOC`, ()=>{
         expect(FormCheckMockComp.find(MockCheckboxComp).props().form.values.checkboxtest).to.be.true;
         FormCheckMockComp.find(MockCheckboxComp).find('#checkboxtest').first().simulate('change',{target:{checked:false,type:"checkbox"}});
         expect(FormCheckMockComp.find(MockCheckboxComp).props().form.values.checkboxtest).to.be.false;
+        
+    });
+
+    
+});
+
+describe("rules",() => {
+    it('should be bind with control object(values,error)',() => {
+        let test_state;
+        const repassword = function(){            
+            test_state = this.controls;
+            return false;
+        };
+        const passwordcontrol = {
+            repassword:[,[repassword]],
+            password:[]            
+        };
+        const WithFormPassword = WithForm(MockPasswordComp, passwordcontrol);        
+        const FormCheckMockComp = mount(<WithFormPassword />);
+        expect(test_state).to.deep.equal({
+            values:{
+                repassword:undefined,
+                password:undefined
+            }
+        })
+
+    });
+    it('the bind value should be updated when control is updated',() => {
+        let test_state;
+        let i = 0;
+        const repassword = function(){            
+            test_state = this.controls;
+            i++;
+            return false;
+        };
+        const passwordcontrol = {
+            repassword:[,[repassword]],
+            password:[]            
+        };
+        const WithFormPassword = WithForm(MockPasswordComp, passwordcontrol);
+        const FormCheckMockComp = mount(<WithFormPassword />);
+        
+        FormCheckMockComp.find(MockPasswordComp).find('#passinput').first().simulate('change', { target:{value:'a'} });    
+        expect(FormCheckMockComp.find(MockPasswordComp).props().form.values.password).to.equal('a');
+        expect(i).to.equal(2);            
+        expect(test_state).to.deep.equal({
+            values:{
+                repassword:undefined,
+                password:'a'
+            }
+        });
         
     });
 });
