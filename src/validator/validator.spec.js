@@ -142,5 +142,42 @@ describe('Validator function', () => {
             expect(actual_3).to.deep.equal(getExpectedError(mockemail_3));
             
         })
-    }); 
+    });
+
+    describe('same', () => {
+       it('should return false if control one and control two are the same', () => {
+            const mock_same = validator.same('password','repassword').bind({
+                controls:{
+                    values:{
+                        password:1234,
+                        repassword:1234
+                    }
+                    
+                }
+            });
+
+            expect(mock_same()).to.be.false;
+
+       });
+
+       it(`should return object if control one and control two aren't the same`, () => {
+        const mock_same = validator.same('password','repassword').bind({
+            controls:{
+                values:{
+                    password:1234,
+                    repassword:123456789
+                }
+                
+            }
+        });
+
+        expect(mock_same()).to.deep.equal({
+            same:{
+                password:1234,
+                repassword:123456789
+            }
+        });
+
+   });
+    });
 }); 
