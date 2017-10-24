@@ -32,7 +32,6 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
                 ...this.state.values,
                 [name]:value
             };
-            console.log(newValues,'newValues');
 
             let newErrors = {};
             Object.keys(controls).map((name) => {
