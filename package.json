@@ -1,6 +1,6 @@
 {
   "name": "react-craftform",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "React form with full customizable and extensible. This library help you create form with your own style.",
   "main": "dest/cf_form.es6.js",
   "scripts": {
