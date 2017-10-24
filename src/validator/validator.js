@@ -82,7 +82,7 @@ export const beTrue = (val) => {
     }
 }
 
-export const beFalse = () => {
+export const beFalse = (val) => {
     if(val === false){
         return false;
     }else{
@@ -92,7 +92,7 @@ export const beFalse = () => {
     }
 }
 
-export const beTruthy = () => {
+export const beTruthy = (val) => {
     if(val){
         return false
     }else{
@@ -102,7 +102,7 @@ export const beTruthy = () => {
     }
 }
 
-export const beFalsy = () => {
+export const beFalsy = (val) => {
     if(!val){
         return false
     }else{
