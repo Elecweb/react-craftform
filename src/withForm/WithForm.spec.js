@@ -215,7 +215,10 @@ describe(`WithForm HOC`, ()=>{
         const WithFormCheckbox = WithForm(MockCheckboxComp, checkboxcontrol);        
         const FormCheckMockComp = mount(<WithFormCheckbox />);
         expect(FormCheckMockComp.find(MockCheckboxComp).props().form.values.checkboxtest).to.be.false;
-        FormCheckMockComp.find(MockCheckboxComp).find('#checkboxtest').first().simulate('change',{checked:true});
+        FormCheckMockComp.find(MockCheckboxComp).find('#checkboxtest').first().simulate('change',{target:{checked:true,type:"checkbox"}});
         expect(FormCheckMockComp.find(MockCheckboxComp).props().form.values.checkboxtest).to.be.true;
+        FormCheckMockComp.find(MockCheckboxComp).find('#checkboxtest').first().simulate('change',{target:{checked:false,type:"checkbox"}});
+        expect(FormCheckMockComp.find(MockCheckboxComp).props().form.values.checkboxtest).to.be.false;
+        
     });
 });
