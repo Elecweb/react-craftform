@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */
 import React from 'react';
 import chai from 'chai';
 import chaiEnzyme from 'chai-enzyme';
@@ -244,7 +245,7 @@ describe("rules",() => {
             return false;
         };
         const passwordcontrol = {
-            repassword:[,[repassword]],
+            repassword:[undefined,[repassword]],
             password:[]            
         };
         const WithFormPassword = WithForm(MockPasswordComp, passwordcontrol);        
@@ -266,7 +267,7 @@ describe("rules",() => {
             return false;
         };
         const passwordcontrol = {
-            repassword:[,[repassword]],
+            repassword:[undefined,[repassword]],
             password:[]            
         };
         const WithFormPassword = WithForm(MockPasswordComp, passwordcontrol);

@@ -40,7 +40,7 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
                 newErrors[name] = validateControl(newValues[name],bindrules,name);
             });
         
-            this.setState(({errors={}})=>{
+            this.setState(()=>{
                 return {
                     errors:newErrors,
                     values:newValues
