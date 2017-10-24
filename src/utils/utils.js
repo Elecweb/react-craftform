@@ -1,4 +1,5 @@
 /* exported validateControl */
+import React from 'react';
 import * as Rule from './../validator/validator';
 export const minLength = (min) => {
     return (val)=>{
@@ -95,4 +96,12 @@ export const bindControlToRule = (rules,values) => {
         }
         
     });
+}
+
+export const ShowWhenDirty = ({children,and = true,dirty}) => {
+    if(dirty && and){
+        return React.Children.only(children);
+    }else{
+        return (null);
+    }
 }
