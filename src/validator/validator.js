@@ -53,11 +53,75 @@ export const email = (email) => {
     }
 }
 
+export const same = (control_one,control_two) => {
+    
+        return function(){
+            const control_one_val = this.controls.values[control_one];
+            const control_two_val = this.controls.values[control_two];
+            if(control_one_val == control_two_val){
+                return false;
+            }else{
+                return {
+                    same:{
+                        [control_one]:control_one_val,
+                        [control_two]:control_two_val
+                    }
+                }
+            }
+        }
+        
+    }
+
+export const beTrue = (val) => {
+    if(val === true){
+        return false;
+    }else{
+        return {
+            beTrue:true
+        }
+    }
+}
+
+export const beFalse = () => {
+    if(val === false){
+        return false;
+    }else{
+        return {
+            beFalse:true
+        }
+    }
+}
+
+export const beTruthy = () => {
+    if(val){
+        return false
+    }else{
+        return {
+            beTruthy:true
+        }
+    }
+}
+
+export const beFalsy = () => {
+    if(!val){
+        return false
+    }else{
+        return {
+            beFalsy:true
+        }
+    }
+}
+
 const index = {
     required,
     minLength,
     maxLength,
-    email
+    email,
+    same,
+    beTrue,
+    beTruthy,
+    beFalse,
+    beFalsy
 }
 
 export default index;
