@@ -29,11 +29,7 @@ const ErrorMessage = (errorspec) => {
                     }
                     
                 });
-            }
-            
-
-            //===================
-            
+            }            
         }
        
         return result.map((ErrorElement)=>{
