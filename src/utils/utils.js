@@ -98,8 +98,8 @@ export const bindControlToRule = (rules,values) => {
     });
 }
 
-export const ShowWhenDirty = ({children,and = true,dirty}) => {
-    if(dirty && and){
+export const ShowWhenDirty = ({children,and = true,dirty,or}) => {
+    if((dirty && and) || or){
         return React.Children.only(children);
     }else{
         return (null);
