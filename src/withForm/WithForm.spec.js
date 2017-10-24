@@ -4,7 +4,7 @@ import chaiEnzyme from 'chai-enzyme';
 import sinon from 'sinon';
 chai.use(chaiEnzyme())
 const expect = chai.expect;
-import { mount,shallow } from "enzyme";
+import { mount } from "enzyme";
 
 import WithForm from './WithForm';
 
