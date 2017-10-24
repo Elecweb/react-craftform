@@ -1,7 +1,11 @@
 import chai from 'chai';
 const expect = chai.expect;
-import { validateControl, hasError } from './utils';
+import { validateControl, hasError, ShowWhenDirty } from './utils';
+import errorMessage from './../errorMessage/ErrorMessage';
 import { minLength } from './../validator/validator';
+import withForm from './../withForm/WithForm';
+import React from 'react';
+import { mount } from "enzyme";
 describe('Utility',() => {
     describe('validateControl function', () => {
         it('should return correct error array if there`s an error', ()=>{
@@ -114,4 +118,55 @@ describe('Utility',() => {
             expect(actualValue1).to.be.true;
         });
     }); 
+
+    describe("showWhenDirty component", () => {
+        let andProp;
+        const errorSpec = (controlname,isDirty) => {
+            return errorMessage({
+                required: () => {
+                    return <ShowWhenDirty and={andProp} dirty={isDirty} ><p className="error">{controlname}</p></ShowWhenDirty>
+                },
+            })
+        }
+
+        let mockForm = (props) => {
+            return (
+                <div>
+                    <input type="text" />
+                    {errorSpec('name',props.form.dirtys['name'])(props.form.errors['name'])}
+                </div>
+            )
+        }
+        
+        let mounted_withForm;
+        beforeEach(() => {
+            const WithFormMock = withForm(mockForm,{
+                name:[undefined,['required']]
+            });
+            mounted_withForm = mount(<WithFormMock />);
+        });
+        it(`should render error message when control is dirty and 'and' prop is true`, () => {
+            andProp = true;
+            expect(mounted_withForm.find(mockForm).find('.error')).to.have.length(0);
+            mounted_withForm.find(mockForm).props().form.handleValue('name')('',true);
+            expect(mounted_withForm.find(mockForm).props().form.dirtys.name).to.be.true;
+            expect(mounted_withForm.find(mockForm).find('.error')).to.have.length(1);
+        });
+
+        it(`shouldn't render error message when 'and' prop is false.`, () => {
+            andProp = false;
+            expect(mounted_withForm.find(mockForm).find('.error')).to.have.length(0);
+            mounted_withForm.find(mockForm).props().form.handleValue('name')('',true);
+            expect(mounted_withForm.find(mockForm).props().form.dirtys.name).to.be.true;
+            expect(mounted_withForm.find(mockForm).find('.error')).to.have.length(0);
+        });
+
+        it(`should render error message when 'and' prop isn't defined`, () => {
+            andProp = undefined;
+            expect(mounted_withForm.find(mockForm).find('.error')).to.have.length(0);
+            mounted_withForm.find(mockForm).props().form.handleValue('name')('',true);
+            expect(mounted_withForm.find(mockForm).props().form.dirtys.name).to.be.true;
+            expect(mounted_withForm.find(mockForm).find('.error')).to.have.length(1);
+        });
+    });
 });
