@@ -8,5 +8,5 @@ export {
     validator,
     errorMessage,
     hasError,
-    ShowWhenDirtys
+    ShowWhenDirty
 };
