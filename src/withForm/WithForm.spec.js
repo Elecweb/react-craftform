@@ -13,6 +13,7 @@ import WithForm from './WithForm';
 const MockCompInput = (props)=>{
     const submit = ()=>{
         props.onFormSubmit("data");
+        props.form.setSubmitted(true);
     };
 
     return (
@@ -354,5 +355,13 @@ describe("dirty",()=>{
         withMockComp.find(MockCompInput).props().form.handleValue('name')('test');
         name_dirty = withMockComp.find(MockCompInput).props().form.dirtys.name;        
         expect(name_dirty).to.be.false;
+    });
+});
+
+describe("submitted",()=>{
+    it(`should be updated to false when call setSubmitted function`,() => {
+        const withMockComp = create_mockCompInput();
+        withMockComp.find('form').simulate('submit');
+        expect(withMockComp.state('submitted')).to.be.true;
     });
 });
