@@ -11,7 +11,8 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
                 values:{},
                 errors:{},
                 rules:{},
-                dirtys:{}
+                dirtys:{},
+                submitted: false
             }
 
             Object.keys(controls).map((name) =>{
@@ -54,6 +55,11 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
             
         }
         
+        setSubmitted(isSubmit){
+            this.setState({
+                submitted:isSubmit
+            });
+        }
 
         render(){
             const formProp = {
@@ -76,6 +82,9 @@ const withForm = function(Wrappedcomp,controls, formpropname="form"){
                         return (value,setDirty = false)=>{
                             this.updateValue.bind(this)(name,value,setDirty)
                         }
+                    },
+                    setSubmitted:(isSubmit = true) => {
+                        this.setSubmitted(isSubmit);
                     }
                 }
             }
