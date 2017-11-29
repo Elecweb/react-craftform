@@ -12,15 +12,11 @@ export default {
             exclude: 'node_modules/**',
             babelrc: false,
             "presets":[
-                { 
-                    "env": {
-                        "modules": false
-                    } 
-                },
+                ["es2015", { "modules": false }],
                 "react"
             ],
             "plugins": [
-                ["transform-object-rest-spread", { "useBuiltIns": true },"external-helpers"]
+                ["transform-object-rest-spread", { "useBuiltIns": true, "modules": false },"external-helpers"]
             ]
         })        
     ]
